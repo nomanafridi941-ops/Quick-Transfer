@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { X, Clock, Zap, MousePointer } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { X, Clock, Zap } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface AdOverlayProps {
@@ -12,6 +12,8 @@ const AdOverlay: React.FC<AdOverlayProps> = ({ onComplete, adType }) => {
   const [countdown, setCountdown] = useState(5);
   const [canSkip, setCanSkip] = useState(false);
   const [adLoaded, setAdLoaded] = useState(false);
+  const adContainerRef = useRef<HTMLDivElement>(null);
+  const adLoadedRef = useRef(false);
 
   // Start countdown only after ad is loaded
   useEffect(() => {
@@ -31,14 +33,42 @@ const AdOverlay: React.FC<AdOverlayProps> = ({ onComplete, adType }) => {
     return () => clearInterval(timer);
   }, [adLoaded]);
 
-  // Simulate ad loading with demo ad
+  // Load the real ad script
   useEffect(() => {
-    // Simulate ad load delay
-    const loadTimer = setTimeout(() => {
-      setAdLoaded(true);
-    }, 500);
+    if (adContainerRef.current && !adLoadedRef.current) {
+      adLoadedRef.current = true;
+      
+      // Set atOptions on window for 300x250 ad
+      (window as any).atOptions = {
+        'key': '7288f548b0a9b206ac8797f9dd309058',
+        'format': 'iframe',
+        'height': 250,
+        'width': 300,
+        'params': {}
+      };
 
-    return () => clearTimeout(loadTimer);
+      // Create and append the script
+      const script = document.createElement('script');
+      script.src = 'https://www.highperformanceformat.com/7288f548b0a9b206ac8797f9dd309058/invoke.js';
+      script.async = true;
+      
+      script.onload = () => {
+        setTimeout(() => setAdLoaded(true), 500);
+      };
+      
+      script.onerror = () => {
+        setTimeout(() => setAdLoaded(true), 1000);
+      };
+      
+      adContainerRef.current.appendChild(script);
+
+      return () => {
+        if (adContainerRef.current) {
+          adContainerRef.current.innerHTML = '';
+        }
+        adLoadedRef.current = false;
+      };
+    }
   }, []);
 
   return (
@@ -77,24 +107,12 @@ const AdOverlay: React.FC<AdOverlayProps> = ({ onComplete, adType }) => {
                 <p className="text-sm text-gray-500 dark:text-gray-300">Loading...</p>
               </div>
             )}
-            {/* Demo Ad Container - 300x250 */}
-            {adLoaded && (
-              <div 
-                className="flex flex-col justify-center items-center bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600"
-                style={{ width: '300px', height: '250px' }}
-              >
-                <div className="text-center p-4">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-red-500 to-pink-500 rounded-xl flex items-center justify-center">
-                    <MousePointer className="w-6 h-6 text-white" />
-                  </div>
-                  <p className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-1">Your Ad Here</p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">300 × 250</p>
-                  <div className="text-xs text-slate-400 dark:text-slate-500 px-3 py-1 bg-white/50 dark:bg-slate-900/50 rounded-full inline-block">
-                    Demo Advertisement
-                  </div>
-                </div>
-              </div>
-            )}
+            {/* Real Ad Container - 300x250 */}
+            <div 
+              ref={adContainerRef}
+              className="flex justify-center items-center"
+              style={{ minWidth: '300px', minHeight: '250px' }}
+            />
           </div>
 
           {/* Ad Footer */}
