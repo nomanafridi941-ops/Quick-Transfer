@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import TransferCard from './components/TransferCard';
 import ResultView from './components/ResultView';
@@ -20,6 +20,18 @@ const App: React.FC = () => {
   const [adType, setAdType] = useState<'send' | 'receive'>('send');
   const [pendingFile, setPendingFile] = useState<File | null>(null);
   const [pendingCode, setPendingCode] = useState<string>('');
+  const [urlCode, setUrlCode] = useState<string>('');
+
+  // Check for code in URL on load (from QR scan)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const codeFromUrl = urlParams.get('code');
+    if (codeFromUrl && codeFromUrl.length === 6) {
+      setUrlCode(codeFromUrl);
+      // Clear the URL parameter without reload
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
 
   // Show ad before sending
   const handleSend = (file: File) => {
@@ -198,7 +210,8 @@ const App: React.FC = () => {
                   <TransferCard 
                     type="receive" 
                     onReceive={handleReceive} 
-                    loading={appState === 'RECEIVING'} 
+                    loading={appState === 'RECEIVING'}
+                    initialCode={urlCode}
                   />
                 </div>
               </section>

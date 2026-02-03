@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Plus, Download, FileText, X, Loader2 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -8,13 +8,21 @@ interface TransferCardProps {
   onSend?: (file: File) => void;
   onReceive?: (code: string) => void;
   loading?: boolean;
+  initialCode?: string;
 }
 
-const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, loading }) => {
+const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, loading, initialCode }) => {
   const { t } = useLanguage();
   const [code, setCode] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Pre-fill code from URL (QR scan)
+  useEffect(() => {
+    if (initialCode && type === 'receive') {
+      setCode(initialCode);
+    }
+  }, [initialCode, type]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {

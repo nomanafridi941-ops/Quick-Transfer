@@ -65,7 +65,7 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
 
           <div className="bg-gray-50 dark:bg-slate-700/50 p-6 rounded-2xl flex flex-col items-center gap-4 mb-8 border border-gray-100 dark:border-slate-600">
              <div className="bg-white dark:bg-slate-800 p-3 rounded-xl shadow-sm">
-                <QRCodeSVG value={data.code} size={150} />
+                <QRCodeSVG value={`https://quicktransfer.site/?code=${data.code}`} size={150} />
              </div>
              <p className="text-xs text-gray-400 dark:text-gray-400 flex items-center gap-1">
                <span className="flex items-center gap-1"><Info className="w-3 h-3" /> {t.codeExpires}</span>
