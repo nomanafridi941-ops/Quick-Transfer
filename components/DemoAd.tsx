@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface DemoAdProps {
   size: '468x60' | '300x250' | '160x300' | '160x600' | '320x50' | '728x90';
@@ -14,37 +14,43 @@ const adConfigs: Record<string, { key: string; width: number; height: number }> 
 
 const DemoAd: React.FC<DemoAdProps> = ({ size }) => {
   const adContainerRef = useRef<HTMLDivElement>(null);
-  const adLoadedRef = useRef(false);
+  const [adId] = useState(() => `ad-${size}-${Math.random().toString(36).substr(2, 9)}`);
 
   const config = adConfigs[size];
 
   useEffect(() => {
-    if (!config || !adContainerRef.current || adLoadedRef.current) return;
+    if (!config || !adContainerRef.current) return;
     
-    adLoadedRef.current = true;
+    const container = adContainerRef.current;
+    
+    // Clear previous content
+    container.innerHTML = '';
 
-    // Set atOptions on window
-    (window as any).atOptions = {
-      'key': config.key,
-      'format': 'iframe',
-      'height': config.height,
-      'width': config.width,
-      'params': {}
+    // Set atOptions on window with unique timing
+    const loadAd = () => {
+      (window as any).atOptions = {
+        'key': config.key,
+        'format': 'iframe',
+        'height': config.height,
+        'width': config.width,
+        'params': {}
+      };
+
+      // Create and append the script
+      const script = document.createElement('script');
+      script.src = `https://www.highperformanceformat.com/${config.key}/invoke.js`;
+      script.async = true;
+      container.appendChild(script);
     };
 
-    // Create and append the script
-    const script = document.createElement('script');
-    script.src = `https://www.highperformanceformat.com/${config.key}/invoke.js`;
-    script.async = true;
-    adContainerRef.current.appendChild(script);
+    // Small delay to prevent conflicts between multiple ads
+    const timer = setTimeout(loadAd, 100);
 
     return () => {
-      if (adContainerRef.current) {
-        adContainerRef.current.innerHTML = '';
-      }
-      adLoadedRef.current = false;
+      clearTimeout(timer);
+      container.innerHTML = '';
     };
-  }, [config]);
+  }, [config, adId]);
 
   // Fallback for sizes without real ads
   if (!config) {
@@ -63,6 +69,7 @@ const DemoAd: React.FC<DemoAdProps> = ({ size }) => {
 
   return (
     <div 
+      id={adId}
       ref={adContainerRef}
       className="flex items-center justify-center mx-auto"
       style={{ minWidth: config.width + 'px', minHeight: config.height + 'px', maxWidth: '100%' }}
