@@ -201,12 +201,12 @@ const App: React.FC = () => {
       </main>
 
       {/* Floating Help Button */}
-      <button className="fixed bottom-6 right-6 bg-red-500 text-white p-4 rounded-full shadow-2xl hover:bg-red-600 transition-all flex items-center gap-2 group z-50">
+      <a href="/help" className="fixed bottom-6 right-6 bg-red-500 text-white p-4 rounded-full shadow-2xl hover:bg-red-600 transition-all flex items-center gap-2 group z-50">
         <HelpCircle className="w-6 h-6" />
         <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 font-bold whitespace-nowrap">
           Need Help?
         </span>
-      </button>
+      </a>
 
       {/* Footer Meta */}
       <footer className="bg-gray-50/50 py-12 border-t border-gray-100">
@@ -216,12 +216,12 @@ const App: React.FC = () => {
              <span className="font-bold">QuickTransfer</span>
            </div>
            <div className="flex gap-8 text-sm text-gray-400 font-medium">
-             <a href="#" className="hover:text-red-500">Terms</a>
-             <a href="#" className="hover:text-red-500">Privacy</a>
-             <a href="#" className="hover:text-red-500">Help Center</a>
-             <a href="#" className="hover:text-red-500">Contact</a>
+             <a href="/terms" className="hover:text-red-500">Terms</a>
+             <a href="/privacy" className="hover:text-red-500">Privacy</a>
+             <a href="/help" className="hover:text-red-500">Help Center</a>
+             <a href="/contact" className="hover:text-red-500">Contact</a>
            </div>
-           <p className="text-xs text-gray-300">© 2024 QuickTransfer Inc. All rights reserved.</p>
+           <p className="text-xs text-gray-300">© 2026 QuickTransfer Inc. All rights reserved.</p>
         </div>
       </footer>
     </div>
