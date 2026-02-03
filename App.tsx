@@ -140,7 +140,7 @@ const App: React.FC = () => {
           ) : (
             <>
               {/* Left Side: Product Illustration & Copy */}
-              <div className="flex flex-col gap-8 order-2 lg:order-1">
+              <section className="flex flex-col gap-8 order-2 lg:order-1">
                 <div className="max-w-md">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="bg-red-500 w-8 h-2 rounded-full" />
@@ -150,8 +150,11 @@ const App: React.FC = () => {
                     {t.shareAnything} <br />
                     <span className="text-red-500">{t.instantly}</span>
                   </h1>
-                  <p className="text-lg text-gray-500 leading-relaxed mb-8">
+                  <p className="text-lg text-gray-500 leading-relaxed mb-4">
                     {t.heroDescription}
+                  </p>
+                  <p className="text-sm font-semibold text-gray-400 tracking-wide">
+                    {t.trustLine}
                   </p>
                 </div>
 
@@ -170,10 +173,10 @@ const App: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </section>
 
               {/* Right Side: Action Cards */}
-              <div className="flex flex-col gap-6 order-1 lg:order-2">
+              <section className="flex flex-col gap-6 order-1 lg:order-2">
                 {error && (
                   <div className="bg-red-50 border border-red-100 text-red-600 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
                     <AlertCircle className="w-5 h-5 flex-shrink-0" />
@@ -196,7 +199,7 @@ const App: React.FC = () => {
                     loading={appState === 'RECEIVING'} 
                   />
                 </div>
-              </div>
+              </section>
             </>
           )}
         </div>
@@ -218,6 +221,7 @@ const App: React.FC = () => {
              <span className="font-bold">QuickTransfer</span>
            </div>
            <div className="flex gap-8 text-sm text-gray-400 font-medium">
+             <a href="/help" className="hover:text-red-500">{t.howItWorks}</a>
              <a href="/terms" className="hover:text-red-500">{t.terms}</a>
              <a href="/privacy" className="hover:text-red-500">{t.privacy}</a>
              <a href="/help" className="hover:text-red-500">{t.helpCenter}</a>

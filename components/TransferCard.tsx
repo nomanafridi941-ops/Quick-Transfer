@@ -37,7 +37,10 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
   if (type === 'send') {
     return (
       <div className="bg-white rounded-2xl p-8 custom-shadow flex flex-col gap-6 transition-all hover:scale-[1.01] w-full max-w-md">
-        <h2 className="text-2xl font-bold text-gray-800">{t.sendFile}</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-gray-800">{t.sendFile}</h2>
+          <p className="text-sm text-gray-400 mt-1">{t.sendHelper}</p>
+        </div>
         
         {!selectedFile ? (
           <div 
@@ -87,13 +90,19 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
 
   return (
     <div className="bg-white rounded-2xl p-8 custom-shadow flex flex-col gap-6 transition-all hover:scale-[1.01] w-full max-w-md">
-      <h2 className="text-2xl font-bold text-gray-800">{t.receiveFile}</h2>
+      <div>
+        <h2 className="text-2xl font-bold text-gray-800">{t.receiveFile}</h2>
+        <p className="text-sm text-gray-400 mt-1">{t.receiveHelper}</p>
+      </div>
       
       <div className="relative group">
+        <label htmlFor="receive-code" className="sr-only">{t.enterCode}</label>
         <input 
+          id="receive-code"
           type="text"
           maxLength={6}
           placeholder={t.enterCode}
+          aria-label={t.enterCode}
           className="w-full bg-gray-50 border border-gray-100 rounded-xl py-4 px-5 text-xl font-mono tracking-widest focus:outline-none focus:ring-2 focus:ring-red-100 focus:bg-white transition-all text-gray-700"
           value={code}
           onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
