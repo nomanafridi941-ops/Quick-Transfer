@@ -1,6 +1,6 @@
 import { TransferData } from '../types';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, get, child } from 'firebase/database';
+import { getDatabase, ref, set, get, child, remove } from 'firebase/database';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -40,4 +40,10 @@ export const getDataByCode = async (code: string): Promise<TransferData | undefi
     }
   }
   return undefined;
+};
+
+// Delete transfer data after download
+export const deleteTransfer = async (code: string): Promise<void> => {
+  const transferRef = ref(database, 'transfers/' + code);
+  await remove(transferRef);
 };

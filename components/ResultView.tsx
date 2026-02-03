@@ -4,6 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { Download, Share2, ArrowLeft, CheckCircle2, FileText, Info, FileCode, Paperclip, Check } from 'lucide-react';
 import { TransferData } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+import { deleteTransfer } from '../services/storage';
 
 interface ResultViewProps {
   data?: TransferData;
@@ -14,16 +15,25 @@ interface ResultViewProps {
 const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
+  const [downloaded, setDownloaded] = useState(false);
   
   if (!data) return null;
 
-  const downloadFile = () => {
+  const downloadFile = async () => {
     const link = document.createElement('a');
     link.href = data.content;
     link.download = data.name;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    
+    // Auto-delete from database after download
+    try {
+      await deleteTransfer(data.code);
+      setDownloaded(true);
+    } catch (error) {
+      console.error('Failed to delete transfer:', error);
+    }
   };
 
   const handleCopyCode = () => {
