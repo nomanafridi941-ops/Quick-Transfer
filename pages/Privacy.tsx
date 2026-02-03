@@ -143,7 +143,13 @@ const Privacy: React.FC = () => {
           
           {/* Demo Ad */}
           <div className="mt-8 flex justify-center">
-            <DemoAd size="468x60" label="Privacy Page" />
+            {/* Mobile: 320x50, Desktop: 468x60 */}
+            <div className="md:hidden">
+              <DemoAd size="320x50" label="Privacy Page Mobile" />
+            </div>
+            <div className="hidden md:block">
+              <DemoAd size="468x60" label="Privacy Page" />
+            </div>
           </div>
         </div>
       </main>
