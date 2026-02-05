@@ -32,6 +32,8 @@ export interface Translation {
   downloadLimit: string;
   user: string;
   users: string;
+  custom: string;
+  enterNumber: string;
   
   // Result
   fileReady: string;
@@ -112,7 +114,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "Need Help?",
     downloadLimit: "Download Limit",
     user: "user",
-    users: "users"
+    users: "users",
+    custom: "Custom",
+    enterNumber: "Enter number"
   },
   es: {
     transfer: "Transferir",
@@ -159,7 +163,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "¿Necesitas Ayuda?",
     downloadLimit: "Límite de Descargas",
     user: "usuario",
-    users: "usuarios"
+    users: "usuarios",
+    custom: "Personalizado",
+    enterNumber: "Ingrese número"
   },
   fr: {
     transfer: "Transférer",
@@ -206,7 +212,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "Besoin d'Aide?",
     downloadLimit: "Limite de Téléchargements",
     user: "utilisateur",
-    users: "utilisateurs"
+    users: "utilisateurs",
+    custom: "Personnalisé",
+    enterNumber: "Entrez le nombre"
   },
   de: {
     transfer: "Übertragen",
@@ -253,7 +261,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "Hilfe Benötigt?",
     downloadLimit: "Download-Limit",
     user: "Benutzer",
-    users: "Benutzer"
+    users: "Benutzer",
+    custom: "Benutzerdefiniert",
+    enterNumber: "Zahl eingeben"
   },
   pt: {
     transfer: "Transferir",
@@ -300,7 +310,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "Precisa de Ajuda?",
     downloadLimit: "Limite de Downloads",
     user: "usuário",
-    users: "usuários"
+    users: "usuários",
+    custom: "Personalizado",
+    enterNumber: "Digite o número"
   },
   ar: {
     transfer: "نقل",
@@ -347,7 +359,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "تحتاج مساعدة؟",
     downloadLimit: "حد التنزيلات",
     user: "مستخدم",
-    users: "مستخدمين"
+    users: "مستخدمين",
+    custom: "مخصص",
+    enterNumber: "أدخل الرقم"
   },
   zh: {
     transfer: "传输",
@@ -394,7 +408,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "需要帮助？",
     downloadLimit: "下载限制",
     user: "用户",
-    users: "用户"
+    users: "用户",
+    custom: "自定义",
+    enterNumber: "输入数字"
   },
   ja: {
     transfer: "転送",
@@ -441,7 +457,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "ヘルプが必要？",
     downloadLimit: "ダウンロード制限",
     user: "ユーザー",
-    users: "ユーザー"
+    users: "ユーザー",
+    custom: "カスタム",
+    enterNumber: "数字を入力"
   },
   ko: {
     transfer: "전송",
@@ -488,7 +506,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "도움이 필요하세요?",
     downloadLimit: "다운로드 제한",
     user: "사용자",
-    users: "사용자"
+    users: "사용자",
+    custom: "사용자 정의",
+    enterNumber: "숫자 입력"
   },
   hi: {
     transfer: "स्थानांतरण",
@@ -535,7 +555,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "मदद चाहिए?",
     downloadLimit: "डाउनलोड सीमा",
     user: "उपयोगकर्ता",
-    users: "उपयोगकर्ता"
+    users: "उपयोगकर्ता",
+    custom: "कस्टम",
+    enterNumber: "नंबर दर्ज करें"
   },
   ru: {
     transfer: "Передача",
@@ -582,7 +604,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "Нужна Помощь?",
     downloadLimit: "Лимит загрузок",
     user: "пользователь",
-    users: "пользователей"
+    users: "пользователей",
+    custom: "Пользовательский",
+    enterNumber: "Введите число"
   },
   it: {
     transfer: "Trasferisci",
@@ -629,7 +653,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "Hai Bisogno di Aiuto?",
     downloadLimit: "Limite Download",
     user: "utente",
-    users: "utenti"
+    users: "utenti",
+    custom: "Personalizzato",
+    enterNumber: "Inserisci numero"
   },
   tr: {
     transfer: "Transfer",
@@ -676,7 +702,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "Yardım Gerekiyor mu?",
     downloadLimit: "İndirme Limiti",
     user: "kullanıcı",
-    users: "kullanıcı"
+    users: "kullanıcı",
+    custom: "Özel",
+    enterNumber: "Sayı girin"
   },
   nl: {
     transfer: "Overdracht",
@@ -723,7 +751,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "Hulp Nodig?",
     downloadLimit: "Downloadlimiet",
     user: "gebruiker",
-    users: "gebruikers"
+    users: "gebruikers",
+    custom: "Aangepast",
+    enterNumber: "Voer nummer in"
   },
   pl: {
     transfer: "Transfer",
@@ -770,7 +800,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "Potrzebujesz Pomocy?",
     downloadLimit: "Limit Pobrań",
     user: "użytkownik",
-    users: "użytkowników"
+    users: "użytkowników",
+    custom: "Niestandardowy",
+    enterNumber: "Wprowadź liczbę"
   },
   ur: {
     transfer: "منتقل کریں",
@@ -817,7 +849,9 @@ export const translations: Record<Language, Translation> = {
     needHelp: "مدد چاہیے?",
     downloadLimit: "ڈاؤن لوڈ کی حد",
     user: "صارف",
-    users: "صارفین"
+    users: "صارفین",
+    custom: "اپنی مرضی",
+    enterNumber: "نمبر درج کریں"
   }
 };
 

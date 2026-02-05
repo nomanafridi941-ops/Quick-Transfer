@@ -16,6 +16,8 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
   const [code, setCode] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [maxDownloads, setMaxDownloads] = useState<number>(1);
+  const [showCustomInput, setShowCustomInput] = useState<boolean>(false);
+  const [customValue, setCustomValue] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Pre-fill code from URL (QR scan)
@@ -96,9 +98,13 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
               {downloadOptions.map((num) => (
                 <button
                   key={num}
-                  onClick={() => setMaxDownloads(num)}
+                  onClick={() => {
+                    setMaxDownloads(num);
+                    setShowCustomInput(false);
+                    setCustomValue('');
+                  }}
                   className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
-                    maxDownloads === num
+                    maxDownloads === num && !showCustomInput
                       ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-md'
                       : 'bg-white dark:bg-slate-600 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-slate-500 hover:border-red-300 dark:hover:border-red-500'
                   }`}
@@ -106,7 +112,41 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
                   {num} {num === 1 ? (t.user || 'user') : (t.users || 'users')}
                 </button>
               ))}
+              {/* Custom Option Button */}
+              <button
+                onClick={() => setShowCustomInput(true)}
+                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                  showCustomInput
+                    ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-md'
+                    : 'bg-white dark:bg-slate-600 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-slate-500 hover:border-red-300 dark:hover:border-red-500'
+                }`}
+              >
+                {t.custom || 'Custom'}
+              </button>
             </div>
+            {/* Custom Input Field */}
+            {showCustomInput && (
+              <div className="mt-3 flex gap-2">
+                <input
+                  type="number"
+                  min="1"
+                  max="1000"
+                  placeholder={t.enterNumber || 'Enter number'}
+                  value={customValue}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setCustomValue(val);
+                    if (val && parseInt(val) > 0) {
+                      setMaxDownloads(parseInt(val));
+                    }
+                  }}
+                  className="flex-1 bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 rounded-lg px-3 py-2 text-sm font-bold text-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-red-400 dark:focus:ring-red-500/50"
+                />
+                <span className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                  {t.users || 'users'}
+                </span>
+              </div>
+            )}
           </div>
         )}
 
