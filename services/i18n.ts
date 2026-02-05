@@ -35,6 +35,15 @@ export interface Translation {
   custom: string;
   enterNumber: string;
   
+  // Expiry Time
+  expiryTime: string;
+  minutes: string;
+  timeLeft: string;
+  downloads: string;
+  remaining: string;
+  codeExpired: string;
+  codeExpiredDesc: string;
+  
   // Result
   fileReady: string;
   shareCode: string;
@@ -116,7 +125,14 @@ export const translations: Record<Language, Translation> = {
     user: "user",
     users: "users",
     custom: "Custom",
-    enterNumber: "Enter number"
+    enterNumber: "Enter number",
+    expiryTime: "Expiry Time",
+    minutes: "min",
+    timeLeft: "Time Left",
+    downloads: "Downloads",
+    remaining: "remaining",
+    codeExpired: "Code Expired",
+    codeExpiredDesc: "This transfer code is no longer valid."
   },
   es: {
     transfer: "Transferir",
@@ -165,7 +181,14 @@ export const translations: Record<Language, Translation> = {
     user: "usuario",
     users: "usuarios",
     custom: "Personalizado",
-    enterNumber: "Ingrese número"
+    enterNumber: "Ingrese número",
+    expiryTime: "Tiempo de Expiración",
+    minutes: "min",
+    timeLeft: "Tiempo Restante",
+    downloads: "Descargas",
+    remaining: "restantes",
+    codeExpired: "Código Expirado",
+    codeExpiredDesc: "Este código de transferencia ya no es válido."
   },
   fr: {
     transfer: "Transférer",
@@ -214,7 +237,14 @@ export const translations: Record<Language, Translation> = {
     user: "utilisateur",
     users: "utilisateurs",
     custom: "Personnalisé",
-    enterNumber: "Entrez le nombre"
+    enterNumber: "Entrez le nombre",
+    expiryTime: "Délai d'Expiration",
+    minutes: "min",
+    timeLeft: "Temps Restant",
+    downloads: "Téléchargements",
+    remaining: "restants",
+    codeExpired: "Code Expiré",
+    codeExpiredDesc: "Ce code de transfert n'est plus valide."
   },
   de: {
     transfer: "Übertragen",
@@ -263,7 +293,14 @@ export const translations: Record<Language, Translation> = {
     user: "Benutzer",
     users: "Benutzer",
     custom: "Benutzerdefiniert",
-    enterNumber: "Zahl eingeben"
+    enterNumber: "Zahl eingeben",
+    expiryTime: "Ablaufzeit",
+    minutes: "Min",
+    timeLeft: "Verbleibende Zeit",
+    downloads: "Downloads",
+    remaining: "übrig",
+    codeExpired: "Code Abgelaufen",
+    codeExpiredDesc: "Dieser Übertragungscode ist nicht mehr gültig."
   },
   pt: {
     transfer: "Transferir",
@@ -312,7 +349,14 @@ export const translations: Record<Language, Translation> = {
     user: "usuário",
     users: "usuários",
     custom: "Personalizado",
-    enterNumber: "Digite o número"
+    enterNumber: "Digite o número",
+    expiryTime: "Tempo de Expiração",
+    minutes: "min",
+    timeLeft: "Tempo Restante",
+    downloads: "Downloads",
+    remaining: "restantes",
+    codeExpired: "Código Expirado",
+    codeExpiredDesc: "Este código de transferência não é mais válido."
   },
   ar: {
     transfer: "نقل",
@@ -361,7 +405,14 @@ export const translations: Record<Language, Translation> = {
     user: "مستخدم",
     users: "مستخدمين",
     custom: "مخصص",
-    enterNumber: "أدخل الرقم"
+    enterNumber: "أدخل الرقم",
+    expiryTime: "وقت انتهاء الصلاحية",
+    minutes: "دقيقة",
+    timeLeft: "الوقت المتبقي",
+    downloads: "التنزيلات",
+    remaining: "متبقي",
+    codeExpired: "انتهت صلاحية الرمز",
+    codeExpiredDesc: "رمز التحويل هذا لم يعد صالحاً."
   },
   zh: {
     transfer: "传输",
@@ -410,7 +461,14 @@ export const translations: Record<Language, Translation> = {
     user: "用户",
     users: "用户",
     custom: "自定义",
-    enterNumber: "输入数字"
+    enterNumber: "输入数字",
+    expiryTime: "过期时间",
+    minutes: "分钟",
+    timeLeft: "剩余时间",
+    downloads: "下载次数",
+    remaining: "剩余",
+    codeExpired: "代码已过期",
+    codeExpiredDesc: "此传输代码已失效。"
   },
   ja: {
     transfer: "転送",
@@ -459,7 +517,14 @@ export const translations: Record<Language, Translation> = {
     user: "ユーザー",
     users: "ユーザー",
     custom: "カスタム",
-    enterNumber: "数字を入力"
+    enterNumber: "数字を入力",
+    expiryTime: "有効期限",
+    minutes: "分",
+    timeLeft: "残り時間",
+    downloads: "ダウンロード数",
+    remaining: "残り",
+    codeExpired: "コードの有効期限切れ",
+    codeExpiredDesc: "この転送コードは無効になりました。"
   },
   ko: {
     transfer: "전송",
@@ -508,7 +573,14 @@ export const translations: Record<Language, Translation> = {
     user: "사용자",
     users: "사용자",
     custom: "사용자 정의",
-    enterNumber: "숫자 입력"
+    enterNumber: "숫자 입력",
+    expiryTime: "만료 시간",
+    minutes: "분",
+    timeLeft: "남은 시간",
+    downloads: "다운로드",
+    remaining: "남음",
+    codeExpired: "코드 만료",
+    codeExpiredDesc: "이 전송 코드는 더 이상 유효하지 않습니다."
   },
   hi: {
     transfer: "स्थानांतरण",
@@ -557,7 +629,14 @@ export const translations: Record<Language, Translation> = {
     user: "उपयोगकर्ता",
     users: "उपयोगकर्ता",
     custom: "कस्टम",
-    enterNumber: "नंबर दर्ज करें"
+    enterNumber: "नंबर दर्ज करें",
+    expiryTime: "समाप्ति समय",
+    minutes: "मिनट",
+    timeLeft: "शेष समय",
+    downloads: "डाउनलोड",
+    remaining: "शेष",
+    codeExpired: "कोड समाप्त",
+    codeExpiredDesc: "यह ट्रांसफर कोड अब वैध नहीं है।"
   },
   ru: {
     transfer: "Передача",
@@ -606,7 +685,14 @@ export const translations: Record<Language, Translation> = {
     user: "пользователь",
     users: "пользователей",
     custom: "Пользовательский",
-    enterNumber: "Введите число"
+    enterNumber: "Введите число",
+    expiryTime: "Время истечения",
+    minutes: "мин",
+    timeLeft: "Осталось",
+    downloads: "Загрузки",
+    remaining: "осталось",
+    codeExpired: "Код истек",
+    codeExpiredDesc: "Этот код передачи больше не действителен."
   },
   it: {
     transfer: "Trasferisci",
@@ -655,7 +741,14 @@ export const translations: Record<Language, Translation> = {
     user: "utente",
     users: "utenti",
     custom: "Personalizzato",
-    enterNumber: "Inserisci numero"
+    enterNumber: "Inserisci numero",
+    expiryTime: "Tempo di Scadenza",
+    minutes: "min",
+    timeLeft: "Tempo Rimanente",
+    downloads: "Download",
+    remaining: "rimanenti",
+    codeExpired: "Codice Scaduto",
+    codeExpiredDesc: "Questo codice di trasferimento non è più valido."
   },
   tr: {
     transfer: "Transfer",
@@ -704,7 +797,14 @@ export const translations: Record<Language, Translation> = {
     user: "kullanıcı",
     users: "kullanıcı",
     custom: "Özel",
-    enterNumber: "Sayı girin"
+    enterNumber: "Sayı girin",
+    expiryTime: "Son Kullanma Süresi",
+    minutes: "dk",
+    timeLeft: "Kalan Süre",
+    downloads: "İndirmeler",
+    remaining: "kalan",
+    codeExpired: "Kod Süresi Doldu",
+    codeExpiredDesc: "Bu transfer kodu artık geçerli değil."
   },
   nl: {
     transfer: "Overdracht",
@@ -753,7 +853,14 @@ export const translations: Record<Language, Translation> = {
     user: "gebruiker",
     users: "gebruikers",
     custom: "Aangepast",
-    enterNumber: "Voer nummer in"
+    enterNumber: "Voer nummer in",
+    expiryTime: "Vervaltijd",
+    minutes: "min",
+    timeLeft: "Resterende Tijd",
+    downloads: "Downloads",
+    remaining: "over",
+    codeExpired: "Code Verlopen",
+    codeExpiredDesc: "Deze overdrachtscode is niet meer geldig."
   },
   pl: {
     transfer: "Transfer",
@@ -802,7 +909,14 @@ export const translations: Record<Language, Translation> = {
     user: "użytkownik",
     users: "użytkowników",
     custom: "Niestandardowy",
-    enterNumber: "Wprowadź liczbę"
+    enterNumber: "Wprowadź liczbę",
+    expiryTime: "Czas Wygaśnięcia",
+    minutes: "min",
+    timeLeft: "Pozostały Czas",
+    downloads: "Pobrania",
+    remaining: "pozostało",
+    codeExpired: "Kod Wygasł",
+    codeExpiredDesc: "Ten kod transferu nie jest już ważny."
   },
   ur: {
     transfer: "منتقل کریں",
@@ -851,7 +965,14 @@ export const translations: Record<Language, Translation> = {
     user: "صارف",
     users: "صارفین",
     custom: "اپنی مرضی",
-    enterNumber: "نمبر درج کریں"
+    enterNumber: "نمبر درج کریں",
+    expiryTime: "ختم ہونے کا وقت",
+    minutes: "منٹ",
+    timeLeft: "باقی وقت",
+    downloads: "ڈاؤن لوڈز",
+    remaining: "باقی",
+    codeExpired: "کوڈ ختم ہو گیا",
+    codeExpiredDesc: "یہ ٹرانسفر کوڈ اب درست نہیں ہے۔"
   }
 };
 

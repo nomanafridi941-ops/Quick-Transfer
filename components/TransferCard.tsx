@@ -1,11 +1,11 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, Download, FileText, X, Loader2, Users } from 'lucide-react';
+import { Plus, Download, FileText, X, Loader2, Users, Clock } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface TransferCardProps {
   type: 'send' | 'receive';
-  onSend?: (file: File, maxDownloads: number) => void;
+  onSend?: (file: File, maxDownloads: number, expiryMinutes: number) => void;
   onReceive?: (code: string) => void;
   loading?: boolean;
   initialCode?: string;
@@ -16,6 +16,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
   const [code, setCode] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [maxDownloads, setMaxDownloads] = useState<number>(1);
+  const [expiryMinutes, setExpiryMinutes] = useState<number>(10);
   const [showCustomInput, setShowCustomInput] = useState<boolean>(false);
   const [customValue, setCustomValue] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -35,9 +36,11 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
 
   const handleSend = () => {
     if (selectedFile && onSend) {
-      onSend(selectedFile, maxDownloads);
+      onSend(selectedFile, maxDownloads, expiryMinutes);
     }
   };
+
+  const expiryOptions = [5, 10, 15, 20, 25];
 
   const handleReceive = () => {
     if (code.length === 6 && onReceive) {
@@ -147,6 +150,31 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
                 </span>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Expiry Time Selector */}
+        {selectedFile && (
+          <div className="bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-600">
+            <div className="flex items-center gap-2 mb-3">
+              <Clock className="w-4 h-4 text-red-500" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{t.expiryTime || 'Expiry Time'}</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {expiryOptions.map((mins) => (
+                <button
+                  key={mins}
+                  onClick={() => setExpiryMinutes(mins)}
+                  className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                    expiryMinutes === mins
+                      ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-md'
+                      : 'bg-white dark:bg-slate-600 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-slate-500 hover:border-red-300 dark:hover:border-red-500'
+                  }`}
+                >
+                  {mins} {t.minutes || 'min'}
+                </button>
+              ))}
+            </div>
           </div>
         )}
 
