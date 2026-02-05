@@ -19,6 +19,7 @@ const App: React.FC = () => {
   const [showAd, setShowAd] = useState(false);
   const [adType, setAdType] = useState<'send' | 'receive'>('send');
   const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [pendingMaxDownloads, setPendingMaxDownloads] = useState<number>(1);
   const [pendingCode, setPendingCode] = useState<string>('');
   const [urlCode, setUrlCode] = useState<string>('');
 
@@ -34,8 +35,9 @@ const App: React.FC = () => {
   }, []);
 
   // Show ad before sending
-  const handleSend = (file: File) => {
+  const handleSend = (file: File, maxDownloads: number) => {
     setPendingFile(file);
+    setPendingMaxDownloads(maxDownloads);
     setAdType('send');
     setShowAd(true);
   };
@@ -63,6 +65,8 @@ const App: React.FC = () => {
         content: reader.result as string,
         createdAt: Date.now(),
         expiresAt: Date.now() + 10 * 60 * 1000, // 10 minutes
+        maxDownloads: pendingMaxDownloads,
+        downloadCount: 0,
       };
 
       try {

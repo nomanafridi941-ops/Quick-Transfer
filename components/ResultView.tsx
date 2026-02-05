@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { Download, Share2, ArrowLeft, CheckCircle2, FileText, Info, FileCode, Paperclip, Check } from 'lucide-react';
+import { Download, Share2, ArrowLeft, CheckCircle2, FileText, Info, FileCode, Paperclip, Check, Users } from 'lucide-react';
 import { TransferData } from '../types';
 import { useLanguage } from '../context/LanguageContext';
-import { deleteTransfer } from '../services/storage';
+import { incrementDownloadCount } from '../services/storage';
 import DemoAd from './DemoAd';
 
 interface ResultViewProps {
@@ -28,12 +28,12 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
     link.click();
     document.body.removeChild(link);
     
-    // Auto-delete from database after download
+    // Increment download count and delete if limit reached
     try {
-      await deleteTransfer(data.code);
+      await incrementDownloadCount(data.code);
       setDownloaded(true);
     } catch (error) {
-      console.error('Failed to delete transfer:', error);
+      console.error('Failed to update download count:', error);
     }
   };
 
@@ -67,9 +67,12 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
              <div className="bg-white dark:bg-slate-800 p-3 rounded-xl shadow-sm">
                 <QRCodeSVG value={`https://quicktransfer.site/?code=${data.code}`} size={150} />
              </div>
-             <p className="text-xs text-gray-400 dark:text-gray-400 flex items-center gap-1">
+             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400 dark:text-gray-400">
                <span className="flex items-center gap-1"><Info className="w-3 h-3" /> {t.codeExpires}</span>
-             </p>
+               <span className="flex items-center gap-1 bg-red-50 dark:bg-red-500/20 text-red-500 dark:text-red-400 px-2 py-1 rounded-full font-medium">
+                 <Users className="w-3 h-3" /> {data.maxDownloads} {data.maxDownloads === 1 ? (t.user || 'user') : (t.users || 'users')}
+               </span>
+             </div>
           </div>
 
           <div className="flex flex-col gap-3">

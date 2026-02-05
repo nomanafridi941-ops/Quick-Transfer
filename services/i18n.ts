@@ -28,6 +28,11 @@ export interface Translation {
   receive: string;
   receiving: string;
   
+  // Download Limit
+  downloadLimit: string;
+  user: string;
+  users: string;
+  
   // Result
   fileReady: string;
   shareCode: string;
@@ -104,7 +109,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Skip",
     preparingFile: "Your file is being prepared...",
     fetchingFile: "Fetching your file...",
-    needHelp: "Need Help?"
+    needHelp: "Need Help?",
+    downloadLimit: "Download Limit",
+    user: "user",
+    users: "users"
   },
   es: {
     transfer: "Transferir",
@@ -148,7 +156,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Omitir",
     preparingFile: "Tu archivo se está preparando...",
     fetchingFile: "Obteniendo tu archivo...",
-    needHelp: "¿Necesitas Ayuda?"
+    needHelp: "¿Necesitas Ayuda?",
+    downloadLimit: "Límite de Descargas",
+    user: "usuario",
+    users: "usuarios"
   },
   fr: {
     transfer: "Transférer",
@@ -192,7 +203,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Passer",
     preparingFile: "Votre fichier est en préparation...",
     fetchingFile: "Récupération de votre fichier...",
-    needHelp: "Besoin d'Aide?"
+    needHelp: "Besoin d'Aide?",
+    downloadLimit: "Limite de Téléchargements",
+    user: "utilisateur",
+    users: "utilisateurs"
   },
   de: {
     transfer: "Übertragen",
@@ -236,7 +250,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Überspringen",
     preparingFile: "Ihre Datei wird vorbereitet...",
     fetchingFile: "Ihre Datei wird abgerufen...",
-    needHelp: "Hilfe Benötigt?"
+    needHelp: "Hilfe Benötigt?",
+    downloadLimit: "Download-Limit",
+    user: "Benutzer",
+    users: "Benutzer"
   },
   pt: {
     transfer: "Transferir",
@@ -280,7 +297,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Pular",
     preparingFile: "Seu arquivo está sendo preparado...",
     fetchingFile: "Buscando seu arquivo...",
-    needHelp: "Precisa de Ajuda?"
+    needHelp: "Precisa de Ajuda?",
+    downloadLimit: "Limite de Downloads",
+    user: "usuário",
+    users: "usuários"
   },
   ar: {
     transfer: "نقل",
@@ -324,7 +344,10 @@ export const translations: Record<Language, Translation> = {
     skip: "تخطي",
     preparingFile: "جاري تحضير ملفك...",
     fetchingFile: "جاري جلب ملفك...",
-    needHelp: "تحتاج مساعدة؟"
+    needHelp: "تحتاج مساعدة؟",
+    downloadLimit: "حد التنزيلات",
+    user: "مستخدم",
+    users: "مستخدمين"
   },
   zh: {
     transfer: "传输",
@@ -368,7 +391,10 @@ export const translations: Record<Language, Translation> = {
     skip: "跳过",
     preparingFile: "您的文件正在准备中...",
     fetchingFile: "正在获取您的文件...",
-    needHelp: "需要帮助？"
+    needHelp: "需要帮助？",
+    downloadLimit: "下载限制",
+    user: "用户",
+    users: "用户"
   },
   ja: {
     transfer: "転送",
@@ -412,7 +438,10 @@ export const translations: Record<Language, Translation> = {
     skip: "スキップ",
     preparingFile: "ファイルを準備中...",
     fetchingFile: "ファイルを取得中...",
-    needHelp: "ヘルプが必要？"
+    needHelp: "ヘルプが必要？",
+    downloadLimit: "ダウンロード制限",
+    user: "ユーザー",
+    users: "ユーザー"
   },
   ko: {
     transfer: "전송",
@@ -456,7 +485,10 @@ export const translations: Record<Language, Translation> = {
     skip: "건너뛰기",
     preparingFile: "파일을 준비 중...",
     fetchingFile: "파일을 가져오는 중...",
-    needHelp: "도움이 필요하세요?"
+    needHelp: "도움이 필요하세요?",
+    downloadLimit: "다운로드 제한",
+    user: "사용자",
+    users: "사용자"
   },
   hi: {
     transfer: "स्थानांतरण",
@@ -500,7 +532,10 @@ export const translations: Record<Language, Translation> = {
     skip: "छोड़ें",
     preparingFile: "आपकी फ़ाइल तैयार हो रही है...",
     fetchingFile: "आपकी फ़ाइल ला रहे हैं...",
-    needHelp: "मदद चाहिए?"
+    needHelp: "मदद चाहिए?",
+    downloadLimit: "डाउनलोड सीमा",
+    user: "उपयोगकर्ता",
+    users: "उपयोगकर्ता"
   },
   ru: {
     transfer: "Передача",
@@ -544,7 +579,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Пропустить",
     preparingFile: "Ваш файл готовится...",
     fetchingFile: "Загрузка файла...",
-    needHelp: "Нужна Помощь?"
+    needHelp: "Нужна Помощь?",
+    downloadLimit: "Лимит загрузок",
+    user: "пользователь",
+    users: "пользователей"
   },
   it: {
     transfer: "Trasferisci",
@@ -588,7 +626,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Salta",
     preparingFile: "Il tuo file è in preparazione...",
     fetchingFile: "Recupero del file...",
-    needHelp: "Hai Bisogno di Aiuto?"
+    needHelp: "Hai Bisogno di Aiuto?",
+    downloadLimit: "Limite Download",
+    user: "utente",
+    users: "utenti"
   },
   tr: {
     transfer: "Transfer",
@@ -632,7 +673,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Atla",
     preparingFile: "Dosyanız hazırlanıyor...",
     fetchingFile: "Dosyanız getiriliyor...",
-    needHelp: "Yardım Gerekiyor mu?"
+    needHelp: "Yardım Gerekiyor mu?",
+    downloadLimit: "İndirme Limiti",
+    user: "kullanıcı",
+    users: "kullanıcı"
   },
   nl: {
     transfer: "Overdracht",
@@ -676,7 +720,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Overslaan",
     preparingFile: "Je bestand wordt voorbereid...",
     fetchingFile: "Je bestand wordt opgehaald...",
-    needHelp: "Hulp Nodig?"
+    needHelp: "Hulp Nodig?",
+    downloadLimit: "Downloadlimiet",
+    user: "gebruiker",
+    users: "gebruikers"
   },
   pl: {
     transfer: "Transfer",
@@ -720,7 +767,10 @@ export const translations: Record<Language, Translation> = {
     skip: "Pomiń",
     preparingFile: "Twój plik jest przygotowywany...",
     fetchingFile: "Pobieranie pliku...",
-    needHelp: "Potrzebujesz Pomocy?"
+    needHelp: "Potrzebujesz Pomocy?",
+    downloadLimit: "Limit Pobrań",
+    user: "użytkownik",
+    users: "użytkowników"
   },
   ur: {
     transfer: "منتقل کریں",
@@ -764,7 +814,10 @@ export const translations: Record<Language, Translation> = {
     skip: "چھوڑیں",
     preparingFile: "آپ کی فائل تیار ہو رہی ہے...",
     fetchingFile: "آپ کی فائل لائی جا رہی ہے...",
-    needHelp: "مدد چاہیے؟"
+    needHelp: "مدد چاہیے?",
+    downloadLimit: "ڈاؤن لوڈ کی حد",
+    user: "صارف",
+    users: "صارفین"
   }
 };
 

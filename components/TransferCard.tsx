@@ -1,11 +1,11 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, Download, FileText, X, Loader2 } from 'lucide-react';
+import { Plus, Download, FileText, X, Loader2, Users } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface TransferCardProps {
   type: 'send' | 'receive';
-  onSend?: (file: File) => void;
+  onSend?: (file: File, maxDownloads: number) => void;
   onReceive?: (code: string) => void;
   loading?: boolean;
   initialCode?: string;
@@ -15,6 +15,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
   const { t } = useLanguage();
   const [code, setCode] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [maxDownloads, setMaxDownloads] = useState<number>(1);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Pre-fill code from URL (QR scan)
@@ -32,7 +33,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
 
   const handleSend = () => {
     if (selectedFile && onSend) {
-      onSend(selectedFile);
+      onSend(selectedFile, maxDownloads);
     }
   };
 
@@ -41,6 +42,8 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
       onReceive(code);
     }
   };
+
+  const downloadOptions = [1, 2, 3, 5, 10];
 
   if (type === 'send') {
     return (
@@ -79,6 +82,31 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
             <button onClick={() => setSelectedFile(null)} className="text-gray-400 hover:text-red-500">
               <X className="w-5 h-5" />
             </button>
+          </div>
+        )}
+
+        {/* Download Limit Selector */}
+        {selectedFile && (
+          <div className="bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-600">
+            <div className="flex items-center gap-2 mb-3">
+              <Users className="w-4 h-4 text-red-500" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{t.downloadLimit || 'Download Limit'}</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {downloadOptions.map((num) => (
+                <button
+                  key={num}
+                  onClick={() => setMaxDownloads(num)}
+                  className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                    maxDownloads === num
+                      ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-md'
+                      : 'bg-white dark:bg-slate-600 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-slate-500 hover:border-red-300 dark:hover:border-red-500'
+                  }`}
+                >
+                  {num} {num === 1 ? (t.user || 'user') : (t.users || 'users')}
+                </button>
+              ))}
+            </div>
           </div>
         )}
 

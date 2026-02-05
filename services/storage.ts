@@ -1,6 +1,6 @@
 import { TransferData } from '../types';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, get, child, remove } from 'firebase/database';
+import { getDatabase, ref, set, get, child, remove, update } from 'firebase/database';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -34,12 +34,35 @@ export const getDataByCode = async (code: string): Promise<TransferData | undefi
   if (snapshot.exists()) {
     const data = snapshot.val() as TransferData;
     const now = Date.now();
-    // Check if not expired (10 min expiry)
-    if (data.expiresAt > now) {
+    // Check if not expired (10 min expiry) and downloads remaining
+    if (data.expiresAt > now && data.downloadCount < data.maxDownloads) {
       return data;
     }
   }
   return undefined;
+};
+
+// Increment download count and delete if limit reached
+export const incrementDownloadCount = async (code: string): Promise<boolean> => {
+  const dbRef = ref(database);
+  const snapshot = await get(child(dbRef, 'transfers/' + code));
+  
+  if (snapshot.exists()) {
+    const data = snapshot.val() as TransferData;
+    const newCount = (data.downloadCount || 0) + 1;
+    
+    if (newCount >= data.maxDownloads) {
+      // Delete if max downloads reached
+      await deleteTransfer(code);
+      return true;
+    } else {
+      // Update download count
+      const transferRef = ref(database, 'transfers/' + code);
+      await update(transferRef, { downloadCount: newCount });
+      return false;
+    }
+  }
+  return false;
 };
 
 // Delete transfer data after download
