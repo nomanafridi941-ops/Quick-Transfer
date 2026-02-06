@@ -131,6 +131,9 @@ const App: React.FC = () => {
       } else if (result.error === 'expired') {
         setError(t.codeExpiredDesc || 'This transfer code is no longer valid.');
         setAppState('IDLE');
+      } else if (result.error === 'limit') {
+        setError(t.codeLimitDesc || 'Download limit reached for this code.');
+        setAppState('IDLE');
       } else if (result.error === 'invalid') {
         setError(t.codeInvalid || 'Invalid code. Please check and try again.');
         setAppState('IDLE');

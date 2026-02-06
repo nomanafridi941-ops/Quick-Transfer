@@ -20,6 +20,7 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
   const [timeRemaining, setTimeRemaining] = useState<number>(0);
   const [currentDownloadCount, setCurrentDownloadCount] = useState<number>(data?.downloadCount || 0);
   const [isExpired, setIsExpired] = useState(false);
+  const [isLimit, setIsLimit] = useState(false);
   
   if (!data) return null;
 
@@ -31,30 +32,28 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
       // Update time remaining
       const remaining = Math.max(0, data.expiresAt - Date.now());
       setTimeRemaining(remaining);
-      
       // Check if expired by time
       if (remaining <= 0) {
         setIsExpired(true);
+        setIsLimit(false);
         return;
       }
-      
       // Refresh download count from database
       try {
-        const freshData = await getDataByCode(data.code);
-        if (freshData) {
-          setCurrentDownloadCount(freshData.downloadCount || 0);
-          // Check if expired by download limit
-          if ((freshData.downloadCount || 0) >= data.maxDownloads) {
-            setIsExpired(true);
-          }
-        } else {
-          // Data was deleted (download limit reached) or expired
-          setIsExpired(true);
+        const result = await getDataByCode(data.code);
+        if (result.data) {
+          setCurrentDownloadCount(result.data.downloadCount || 0);
+          setIsLimit(false);
+        } else if (result.error === 'limit') {
+          setIsLimit(true);
+          setIsExpired(false);
           setCurrentDownloadCount(data.maxDownloads);
+        } else if (result.error === 'expired') {
+          setIsExpired(true);
+          setIsLimit(false);
         }
       } catch (error) {
         console.log('Checking status...', error);
-        // Don't immediately expire on error, might be network issue
       }
     };
     
@@ -88,13 +87,20 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
       const expired = await incrementDownloadCount(data.code);
       setDownloaded(true);
       if (expired) {
-        setIsExpired(true);
+        setIsLimit(true);
+        setIsExpired(false);
         setCurrentDownloadCount(data.maxDownloads);
       } else {
         // Optionally, force refresh status
-        const freshData = await getDataByCode(data.code);
-        if (freshData) {
-          setCurrentDownloadCount(freshData.downloadCount || 0);
+        const result = await getDataByCode(data.code);
+        if (result.data) {
+          setCurrentDownloadCount(result.data.downloadCount || 0);
+        } else if (result.error === 'limit') {
+          setIsLimit(true);
+          setIsExpired(false);
+        } else if (result.error === 'expired') {
+          setIsExpired(true);
+          setIsLimit(false);
         }
       }
     } catch (error) {
@@ -123,14 +129,18 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
 
       {mode === 'SENT' ? (
         <div className="text-center">
-          {/* Expired State */}
-          {isExpired ? (
+          {/* Expired or Limit State */}
+          {(isExpired || isLimit) ? (
             <div className="py-8">
               <div className="bg-red-50 dark:bg-red-500/20 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-red-200 dark:border-red-500/30">
                 <AlertTriangle className="w-10 h-10 text-red-500 dark:text-red-400" />
               </div>
-              <h3 className="text-2xl font-black text-gray-800 dark:text-white mb-2">{t.codeExpired || 'Code Expired'}</h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-6">{t.codeExpiredDesc || 'This transfer code is no longer valid.'}</p>
+              <h3 className="text-2xl font-black text-gray-800 dark:text-white mb-2">
+                {isExpired ? (t.codeExpired || 'Code Expired') : (t.codeLimit || 'Download Limit Reached')}
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-6">
+                {isExpired ? (t.codeExpiredDesc || 'This transfer code is no longer valid.') : (t.codeLimitDesc || 'The download limit for this code has been reached.')}
+              </p>
               <button 
                 onClick={onBack}
                 className="w-full bg-gradient-to-r from-red-500 to-pink-500 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:from-red-600 hover:to-pink-600 transition-all shadow-lg shadow-red-500/25 dark:shadow-red-500/20"

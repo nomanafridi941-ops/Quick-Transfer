@@ -35,10 +35,12 @@ export const getDataByCode = async (code: string): Promise<{ data?: TransferData
   if (snapshot.exists()) {
     const data = snapshot.val() as TransferData;
     const now = Date.now();
-    if (data.expiresAt > now && data.downloadCount < data.maxDownloads) {
-      return { data };
-    } else {
+    if (data.expiresAt <= now) {
       return { error: 'expired' };
+    } else if (data.downloadCount >= data.maxDownloads) {
+      return { error: 'limit' };
+    } else {
+      return { data };
     }
   }
   return { error: 'invalid' };
