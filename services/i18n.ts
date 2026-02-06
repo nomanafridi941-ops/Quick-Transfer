@@ -43,6 +43,7 @@ export interface Translation {
   remaining: string;
   codeExpired: string;
   codeExpiredDesc: string;
+  codeInvalid: string;
   
   // Transfer History
   recentTransfers: string;
@@ -140,6 +141,7 @@ export const translations: Record<Language, Translation> = {
     remaining: "remaining",
     codeExpired: "Code Expired",
     codeExpiredDesc: "This transfer code is no longer valid.",
+    codeInvalid: "Invalid code. Please check and try again.",
     recentTransfers: "Recent",
     transferHistory: "Transfer History",
     storedLocally: "Stored only on your device",

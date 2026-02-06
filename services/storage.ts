@@ -27,19 +27,21 @@ export const saveData = async (data: TransferData): Promise<void> => {
   await set(transferRef, data);
 };
 
-export const getDataByCode = async (code: string): Promise<TransferData | undefined> => {
+// Returns { data, error }: error can be 'expired', 'invalid', or null
+export const getDataByCode = async (code: string): Promise<{ data?: TransferData, error?: 'expired' | 'invalid' }> => {
   const dbRef = ref(database);
   const snapshot = await get(child(dbRef, 'transfers/' + code));
-  
+
   if (snapshot.exists()) {
     const data = snapshot.val() as TransferData;
     const now = Date.now();
-    // Check if not expired (10 min expiry) and downloads remaining
     if (data.expiresAt > now && data.downloadCount < data.maxDownloads) {
-      return data;
+      return { data };
+    } else {
+      return { error: 'expired' };
     }
   }
-  return undefined;
+  return { error: 'invalid' };
 };
 
 // Increment download count and delete if limit reached

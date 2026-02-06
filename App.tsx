@@ -116,18 +116,21 @@ const App: React.FC = () => {
     setPendingCode('');
 
     try {
-      const data = await getDataByCode(code);
-      if (data) {
+      const result = await getDataByCode(code);
+      if (result.data) {
         // Save to local history
         addToHistory({
-          code: data.code,
-          name: data.name,
-          size: data.size,
+          code: result.data.code,
+          name: result.data.name,
+          size: result.data.size,
           type: 'received',
         });
-        setCurrentData(data);
+        setCurrentData(result.data);
         setMode('RECEIVED');
         setAppState('COMPLETE');
+      } else if (result.error === 'expired') {
+        setError(t.codeExpired || 'This transfer code is no longer valid.');
+        setAppState('IDLE');
       } else {
         setError(t.invalidCode);
         setAppState('IDLE');
