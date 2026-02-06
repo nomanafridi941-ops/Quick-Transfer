@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Rocket, Shield, Eye, Lock, Database, Trash2, Globe, Moon, Sun } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import DemoAd from '../components/DemoAd';
 
 const Privacy: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
+  
+  useEffect(() => {
+    document.title = 'Privacy Policy – QuickTransfer';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'QuickTransfer respects your privacy. Files are transferred securely and automatically deleted. No tracking, no sign-up, no data selling.');
+    }
+  }, []);
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-pink-50 dark:from-gray-900 dark:to-gray-800">

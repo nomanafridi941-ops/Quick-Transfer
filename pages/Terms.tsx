@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Rocket, Shield, FileText, AlertTriangle, CheckCircle, Moon, Sun } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import DemoAd from '../components/DemoAd';
 
 const Terms: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
+  
+  useEffect(() => {
+    document.title = 'Terms of Service – QuickTransfer';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Read QuickTransfer Terms of Service. Simple, fair terms for using our free file sharing service. No hidden fees, no surprises.');
+    }
+  }, []);
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-pink-50 dark:from-gray-900 dark:to-gray-800">

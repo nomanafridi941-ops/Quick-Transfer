@@ -44,6 +44,13 @@ export interface Translation {
   codeExpired: string;
   codeExpiredDesc: string;
   
+  // Transfer History
+  recentTransfers: string;
+  transferHistory: string;
+  storedLocally: string;
+  clearHistory: string;
+  last3Transfers: string;
+  
   // Result
   fileReady: string;
   shareCode: string;
@@ -82,11 +89,11 @@ export const translations: Record<Language, Translation> = {
     transfer: "Transfer",
     download: "Download",
     language: "Language",
-    fastSecure: "Fast & Secure",
-    shareAnything: "Share Files & Links",
+    fastSecure: "Secure File Sharing",
+    shareAnything: "Share Files Online",
     instantly: "Instantly.",
-    heroDescription: "The easiest way to send files across devices. Upload your content, get a 6-digit key, and share it instantly. No sign-up required.",
-    trustLine: "Fast • Secure • No Registration",
+    heroDescription: "The easiest way to send files online without login. Upload your content, get a secure 6-digit code, and transfer files between devices instantly. No sign-up required.",
+    trustLine: "Fast • Secure • No Registration • Works on Any Device",
     sendFile: "Send a File",
     sendDescription: "Upload any file and get a unique code to share",
     sendHelper: "Upload a file to generate a secure 6-digit transfer code.",
@@ -132,7 +139,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "Downloads",
     remaining: "remaining",
     codeExpired: "Code Expired",
-    codeExpiredDesc: "This transfer code is no longer valid."
+    codeExpiredDesc: "This transfer code is no longer valid.",
+    recentTransfers: "Recent",
+    transferHistory: "Transfer History",
+    storedLocally: "Stored only on your device",
+    clearHistory: "Clear History",
+    last3Transfers: "Your last 3 transfers (stored only on your device)"
   },
   es: {
     transfer: "Transferir",
@@ -188,7 +200,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "Descargas",
     remaining: "restantes",
     codeExpired: "Código Expirado",
-    codeExpiredDesc: "Este código de transferencia ya no es válido."
+    codeExpiredDesc: "Este código de transferencia ya no es válido.",
+    recentTransfers: "Recientes",
+    transferHistory: "Historial de Transferencias",
+    storedLocally: "Almacenado solo en tu dispositivo",
+    clearHistory: "Borrar Historial",
+    last3Transfers: "Tus últimas 3 transferencias (solo en tu dispositivo)"
   },
   fr: {
     transfer: "Transférer",
@@ -244,7 +261,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "Téléchargements",
     remaining: "restants",
     codeExpired: "Code Expiré",
-    codeExpiredDesc: "Ce code de transfert n'est plus valide."
+    codeExpiredDesc: "Ce code de transfert n'est plus valide.",
+    recentTransfers: "Récents",
+    transferHistory: "Historique des Transferts",
+    storedLocally: "Stocké uniquement sur votre appareil",
+    clearHistory: "Effacer l'Historique",
+    last3Transfers: "Vos 3 derniers transferts (stockés uniquement sur votre appareil)"
   },
   de: {
     transfer: "Übertragen",
@@ -300,7 +322,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "Downloads",
     remaining: "übrig",
     codeExpired: "Code Abgelaufen",
-    codeExpiredDesc: "Dieser Übertragungscode ist nicht mehr gültig."
+    codeExpiredDesc: "Dieser Übertragungscode ist nicht mehr gültig.",
+    recentTransfers: "Kürzlich",
+    transferHistory: "Übertragungsverlauf",
+    storedLocally: "Nur auf Ihrem Gerät gespeichert",
+    clearHistory: "Verlauf löschen",
+    last3Transfers: "Ihre letzten 3 Übertragungen (nur auf Ihrem Gerät gespeichert)"
   },
   pt: {
     transfer: "Transferir",
@@ -356,7 +383,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "Downloads",
     remaining: "restantes",
     codeExpired: "Código Expirado",
-    codeExpiredDesc: "Este código de transferência não é mais válido."
+    codeExpiredDesc: "Este código de transferência não é mais válido.",
+    recentTransfers: "Recentes",
+    transferHistory: "Histórico de Transferências",
+    storedLocally: "Armazenado apenas no seu dispositivo",
+    clearHistory: "Limpar Histórico",
+    last3Transfers: "Suas últimas 3 transferências (armazenadas apenas no seu dispositivo)"
   },
   ar: {
     transfer: "نقل",
@@ -412,7 +444,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "التنزيلات",
     remaining: "متبقي",
     codeExpired: "انتهت صلاحية الرمز",
-    codeExpiredDesc: "رمز التحويل هذا لم يعد صالحاً."
+    codeExpiredDesc: "رمز التحويل هذا لم يعد صالحاً.",
+    recentTransfers: "الأخيرة",
+    transferHistory: "سجل التحويلات",
+    storedLocally: "مخزن فقط على جهازك",
+    clearHistory: "مسح السجل",
+    last3Transfers: "آخر 3 تحويلات (مخزنة فقط على جهازك)"
   },
   zh: {
     transfer: "传输",
@@ -468,7 +505,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "下载次数",
     remaining: "剩余",
     codeExpired: "代码已过期",
-    codeExpiredDesc: "此传输代码已失效。"
+    codeExpiredDesc: "此传输代码已失效。",
+    recentTransfers: "最近",
+    transferHistory: "传输历史",
+    storedLocally: "仅存储在您的设备上",
+    clearHistory: "清除历史",
+    last3Transfers: "您最近的3次传输（仅存储在您的设备上）"
   },
   ja: {
     transfer: "転送",
@@ -524,7 +566,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "ダウンロード数",
     remaining: "残り",
     codeExpired: "コードの有効期限切れ",
-    codeExpiredDesc: "この転送コードは無効になりました。"
+    codeExpiredDesc: "この転送コードは無効になりました。",
+    recentTransfers: "最近",
+    transferHistory: "転送履歴",
+    storedLocally: "お使いの端末にのみ保存",
+    clearHistory: "履歴を消去",
+    last3Transfers: "最近の3件の転送（お使いの端末にのみ保存）"
   },
   ko: {
     transfer: "전송",
@@ -580,7 +627,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "다운로드",
     remaining: "남음",
     codeExpired: "코드 만료",
-    codeExpiredDesc: "이 전송 코드는 더 이상 유효하지 않습니다."
+    codeExpiredDesc: "이 전송 코드는 더 이상 유효하지 않습니다.",
+    recentTransfers: "최근",
+    transferHistory: "전송 기록",
+    storedLocally: "기기에만 저장됨",
+    clearHistory: "기록 삭제",
+    last3Transfers: "최근 3건의 전송 (기기에만 저장됨)"
   },
   hi: {
     transfer: "स्थानांतरण",
@@ -636,7 +688,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "डाउनलोड",
     remaining: "शेष",
     codeExpired: "कोड समाप्त",
-    codeExpiredDesc: "यह ट्रांसफर कोड अब वैध नहीं है।"
+    codeExpiredDesc: "यह ट्रांसफर कोड अब वैध नहीं है।",
+    recentTransfers: "हाल के",
+    transferHistory: "ट्रांसफर इतिहास",
+    storedLocally: "केवल आपके डिवाइस पर संग्रहीत",
+    clearHistory: "इतिहास साफ़ करें",
+    last3Transfers: "आपके पिछले 3 ट्रांसफर (केवल आपके डिवाइस पर संग्रहीत)"
   },
   ru: {
     transfer: "Передача",
@@ -692,7 +749,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "Загрузки",
     remaining: "осталось",
     codeExpired: "Код истек",
-    codeExpiredDesc: "Этот код передачи больше не действителен."
+    codeExpiredDesc: "Этот код передачи больше не действителен.",
+    recentTransfers: "Недавние",
+    transferHistory: "История передач",
+    storedLocally: "Хранится только на вашем устройстве",
+    clearHistory: "Очистить историю",
+    last3Transfers: "Последние 3 передачи (хранятся только на вашем устройстве)"
   },
   it: {
     transfer: "Trasferisci",
@@ -748,7 +810,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "Download",
     remaining: "rimanenti",
     codeExpired: "Codice Scaduto",
-    codeExpiredDesc: "Questo codice di trasferimento non è più valido."
+    codeExpiredDesc: "Questo codice di trasferimento non è più valido.",
+    recentTransfers: "Recenti",
+    transferHistory: "Cronologia Trasferimenti",
+    storedLocally: "Memorizzato solo sul tuo dispositivo",
+    clearHistory: "Cancella Cronologia",
+    last3Transfers: "I tuoi ultimi 3 trasferimenti (memorizzati solo sul tuo dispositivo)"
   },
   tr: {
     transfer: "Transfer",
@@ -804,7 +871,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "İndirmeler",
     remaining: "kalan",
     codeExpired: "Kod Süresi Doldu",
-    codeExpiredDesc: "Bu transfer kodu artık geçerli değil."
+    codeExpiredDesc: "Bu transfer kodu artık geçerli değil.",
+    recentTransfers: "Son",
+    transferHistory: "Transfer Geçmişi",
+    storedLocally: "Yalnızca cihazınızda saklanır",
+    clearHistory: "Geçmişi Temizle",
+    last3Transfers: "Son 3 transferiniz (yalnızca cihazınızda saklanır)"
   },
   nl: {
     transfer: "Overdracht",
@@ -860,7 +932,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "Downloads",
     remaining: "over",
     codeExpired: "Code Verlopen",
-    codeExpiredDesc: "Deze overdrachtscode is niet meer geldig."
+    codeExpiredDesc: "Deze overdrachtscode is niet meer geldig.",
+    recentTransfers: "Recent",
+    transferHistory: "Overdrachtsgeschiedenis",
+    storedLocally: "Alleen op uw apparaat opgeslagen",
+    clearHistory: "Geschiedenis Wissen",
+    last3Transfers: "Uw laatste 3 overdrachten (alleen op uw apparaat opgeslagen)"
   },
   pl: {
     transfer: "Transfer",
@@ -916,7 +993,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "Pobrania",
     remaining: "pozostało",
     codeExpired: "Kod Wygasł",
-    codeExpiredDesc: "Ten kod transferu nie jest już ważny."
+    codeExpiredDesc: "Ten kod transferu nie jest już ważny.",
+    recentTransfers: "Ostatnie",
+    transferHistory: "Historia Transferów",
+    storedLocally: "Przechowywane tylko na Twoim urządzeniu",
+    clearHistory: "Wyczyść Historię",
+    last3Transfers: "Twoje ostatnie 3 transfery (przechowywane tylko na Twoim urządzeniu)"
   },
   ur: {
     transfer: "منتقل کریں",
@@ -972,7 +1054,12 @@ export const translations: Record<Language, Translation> = {
     downloads: "ڈاؤن لوڈز",
     remaining: "باقی",
     codeExpired: "کوڈ ختم ہو گیا",
-    codeExpiredDesc: "یہ ٹرانسفر کوڈ اب درست نہیں ہے۔"
+    codeExpiredDesc: "یہ ٹرانسفر کوڈ اب درست نہیں ہے۔",
+    recentTransfers: "حالیہ",
+    transferHistory: "ٹرانسفر ہسٹری",
+    storedLocally: "صرف آپ کے آلے پر محفوظ",
+    clearHistory: "ہسٹری صاف کریں",
+    last3Transfers: "آپ کے آخری 3 ٹرانسفر (صرف آپ کے آلے پر محفوظ)"
   }
 };
 

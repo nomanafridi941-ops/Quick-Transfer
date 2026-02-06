@@ -5,8 +5,10 @@ import TransferCard from './components/TransferCard';
 import ResultView from './components/ResultView';
 import AdOverlay from './components/AdOverlay';
 import DemoAd from './components/DemoAd';
+import TransferHistory from './components/TransferHistory';
 import { AppState, TransferData } from './types';
 import { generateCode, saveData, getDataByCode } from './services/storage';
+import { addToHistory } from './services/history';
 import { useLanguage } from './context/LanguageContext';
 import { AlertCircle, HelpCircle, Rocket, Send, X } from 'lucide-react';
 
@@ -73,6 +75,15 @@ const App: React.FC = () => {
 
       try {
         await saveData(transfer);
+        // Save to local history
+        addToHistory({
+          code: transfer.code,
+          name: transfer.name,
+          size: transfer.size,
+          type: 'sent',
+          maxDownloads: transfer.maxDownloads,
+          expiryMinutes: pendingExpiryMinutes,
+        });
         setCurrentData(transfer);
         setMode('SENT');
         setAppState('COMPLETE');
@@ -107,6 +118,13 @@ const App: React.FC = () => {
     try {
       const data = await getDataByCode(code);
       if (data) {
+        // Save to local history
+        addToHistory({
+          code: data.code,
+          name: data.name,
+          size: data.size,
+          type: 'received',
+        });
         setCurrentData(data);
         setMode('RECEIVED');
         setAppState('COMPLETE');
@@ -225,6 +243,11 @@ const App: React.FC = () => {
           )}
         </div>
       </main>
+
+      {/* Transfer History Button */}
+      <TransferHistory onCodeClick={(code) => {
+        setUrlCode(code);
+      }} />
 
       {/* Floating Help Button */}
       <a href="/help" className="fixed bottom-6 right-6 bg-red-500 text-white p-4 rounded-full shadow-2xl hover:bg-red-600 transition-all flex items-center gap-2 group z-50">

@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Rocket, HelpCircle, Upload, Download, Clock, Key, Shield, Zap, MessageCircle, Moon, Sun } from 'lucide-react';
 import DemoAd from '../components/DemoAd';
 import { useTheme } from '../context/ThemeContext';
 
 const HelpCenter: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
+  
+  useEffect(() => {
+    document.title = 'How QuickTransfer Works – Send Files Instantly';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Learn how QuickTransfer works. Upload a file, get a secure 6-digit code, and share files instantly across any device.');
+    }
+  }, []);
+  
   const faqs = [
     {
       icon: <Upload className="w-5 h-5 text-blue-500" />,

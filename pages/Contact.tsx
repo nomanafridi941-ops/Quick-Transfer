@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Rocket, Mail, MessageSquare, MapPin, Clock, CheckCircle, AlertCircle, Moon, Sun } from 'lucide-react';
 import DemoAd from '../components/DemoAd';
 import { useTheme } from '../context/ThemeContext';
 
 const Contact: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
+  
+  useEffect(() => {
+    document.title = 'Contact – QuickTransfer';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', "Contact QuickTransfer for support, feedback, or questions. We're here to help you share files faster and securely.");
+    }
+  }, []);
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
