@@ -50,6 +50,7 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
         } else {
           // Data was deleted (download limit reached) or expired
           setIsExpired(true);
+          setCurrentDownloadCount(data.maxDownloads);
         }
       } catch (error) {
         console.log('Checking status...', error);
