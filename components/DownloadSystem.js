@@ -65,6 +65,12 @@ function initDownloadSystem() {
   updateUI();
   startCountdown();
   document.getElementById("download-btn").addEventListener("click", handleDownload);
+
+  // Refresh only Downloads count every 2 seconds
+  setInterval(() => {
+    downloadCount = loadDownloadCount();
+    document.getElementById("count-display").textContent = `${downloadCount}/${DOWNLOAD_LIMIT}`;
+  }, 2000);
 }
 
 window.addEventListener("DOMContentLoaded", initDownloadSystem);
