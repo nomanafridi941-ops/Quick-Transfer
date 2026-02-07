@@ -8,8 +8,8 @@ export interface TransferData {
   content: string; // Base64 or Text
   createdAt: number;
   expiresAt: number;
-  maxDownloads: number; // Maximum number of downloads allowed
-  downloadCount: number; // Current download count
+  // maxDownloads removed - downloads are unlimited
+  downloadCount: number; // Current download count (informational)
 }
 
 export type AppState = 'IDLE' | 'SENDING' | 'RECEIVING' | 'COMPLETE';

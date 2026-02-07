@@ -142,8 +142,6 @@ export const translations: Record<Language, Translation> = {
     codeExpired: "Code Expired",
     codeExpiredDesc: "This transfer code is no longer valid.",
     codeInvalid: "Invalid code. Please check and try again.",
-    codeLimit: "Download Limit Reached",
-    codeLimitDesc: "The download limit for this code has been reached.",
     recentTransfers: "Recent",
     transferHistory: "Transfer History",
     storedLocally: "Stored only on your device",

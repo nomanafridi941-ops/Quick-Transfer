@@ -37,8 +37,6 @@ export const getDataByCode = async (code: string): Promise<{ data?: TransferData
     const now = Date.now();
     if (data.expiresAt <= now) {
       return { error: 'expired' };
-    } else if (data.downloadCount >= data.maxDownloads) {
-      return { error: 'limit' };
     } else {
       return { data };
     }
@@ -46,7 +44,7 @@ export const getDataByCode = async (code: string): Promise<{ data?: TransferData
   return { error: 'invalid' };
 };
 
-// Increment download count and delete if limit reached
+// Increment download count (no deletion)
 export const incrementDownloadCount = async (code: string): Promise<boolean> => {
   const dbRef = ref(database);
   const snapshot = await get(child(dbRef, 'transfers/' + code));
@@ -54,17 +52,10 @@ export const incrementDownloadCount = async (code: string): Promise<boolean> => 
   if (snapshot.exists()) {
     const data = snapshot.val() as TransferData;
     const newCount = (data.downloadCount || 0) + 1;
-    
-    if (newCount >= data.maxDownloads) {
-      // Delete if max downloads reached
-      await deleteTransfer(code);
-      return true;
-    } else {
-      // Update download count
-      const transferRef = ref(database, 'transfers/' + code);
-      await update(transferRef, { downloadCount: newCount });
-      return false;
-    }
+    // Update download count only
+    const transferRef = ref(database, 'transfers/' + code);
+    await update(transferRef, { downloadCount: newCount });
+    return false; // never deleted due to downloads
   }
   return false;
 };

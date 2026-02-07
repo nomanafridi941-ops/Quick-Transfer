@@ -67,7 +67,6 @@ const App: React.FC = () => {
         content: reader.result as string,
         createdAt: Date.now(),
         expiresAt: Date.now() + pendingExpiryMinutes * 60 * 1000, // Dynamic expiry
-        maxDownloads: Number.MAX_SAFE_INTEGER, // effectively unlimited since option removed
         downloadCount: 0,
       };
 
@@ -127,9 +126,6 @@ const App: React.FC = () => {
         setAppState('COMPLETE');
       } else if (result.error === 'expired') {
         setError(t.codeExpiredDesc || 'This transfer code is no longer valid.');
-        setAppState('IDLE');
-      } else if (result.error === 'limit') {
-        setError(t.codeLimitDesc || 'Download limit reached for this code.');
         setAppState('IDLE');
       } else if (result.error === 'invalid') {
         setError(t.codeInvalid || 'Invalid code. Please check and try again.');

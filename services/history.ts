@@ -8,7 +8,6 @@ export interface HistoryItem {
   size: number;
   type: 'sent' | 'received';
   timestamp: number;
-  maxDownloads?: number;
   expiryMinutes?: number;
 }
 
