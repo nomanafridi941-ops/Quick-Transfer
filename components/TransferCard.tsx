@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 interface TransferCardProps {
   type: 'send' | 'receive';
-  onSend?: (file: File, maxDownloads: number, expiryMinutes: number) => void;
+  onSend?: (file: File, expiryMinutes: number) => void;
   onReceive?: (code: string) => void;
   loading?: boolean;
   initialCode?: string;
@@ -15,10 +15,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
   const { t } = useLanguage();
   const [code, setCode] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [maxDownloads, setMaxDownloads] = useState<number>(1);
   const [expiryMinutes, setExpiryMinutes] = useState<number>(10);
-  const [showCustomInput, setShowCustomInput] = useState<boolean>(false);
-  const [customValue, setCustomValue] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Pre-fill code from URL (QR scan)
@@ -36,7 +33,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
 
   const handleSend = () => {
     if (selectedFile && onSend) {
-      onSend(selectedFile, maxDownloads, expiryMinutes);
+      onSend(selectedFile, expiryMinutes);
     }
   };
 
@@ -48,7 +45,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
     }
   };
 
-  const downloadOptions = [1, 2, 3, 5, 10];
+  // downloadOptions removed - download limit option disabled
 
   if (type === 'send') {
     return (
@@ -90,68 +87,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
           </div>
         )}
 
-        {/* Download Limit Selector */}
-        {selectedFile && (
-          <div className="bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-600">
-            <div className="flex items-center gap-2 mb-3">
-              <Users className="w-4 h-4 text-red-500" />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{t.downloadLimit || 'Download Limit'}</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {downloadOptions.map((num) => (
-                <button
-                  key={num}
-                  onClick={() => {
-                    setMaxDownloads(num);
-                    setShowCustomInput(false);
-                    setCustomValue('');
-                  }}
-                  className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
-                    maxDownloads === num && !showCustomInput
-                      ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-md'
-                      : 'bg-white dark:bg-slate-600 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-slate-500 hover:border-red-300 dark:hover:border-red-500'
-                  }`}
-                >
-                  {num} {num === 1 ? (t.user || 'user') : (t.users || 'users')}
-                </button>
-              ))}
-              {/* Custom Option Button */}
-              <button
-                onClick={() => setShowCustomInput(true)}
-                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
-                  showCustomInput
-                    ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-md'
-                    : 'bg-white dark:bg-slate-600 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-slate-500 hover:border-red-300 dark:hover:border-red-500'
-                }`}
-              >
-                {t.custom || 'Custom'}
-              </button>
-            </div>
-            {/* Custom Input Field */}
-            {showCustomInput && (
-              <div className="mt-3 flex gap-2">
-                <input
-                  type="number"
-                  min="1"
-                  max="1000"
-                  placeholder={t.enterNumber || 'Enter number'}
-                  value={customValue}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    setCustomValue(val);
-                    if (val && parseInt(val) > 0) {
-                      setMaxDownloads(parseInt(val));
-                    }
-                  }}
-                  className="flex-1 bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 rounded-lg px-3 py-2 text-sm font-bold text-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-red-400 dark:focus:ring-red-500/50"
-                />
-                <span className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  {t.users || 'users'}
-                </span>
-              </div>
-            )}
-          </div>
-        )}
+        {/* Download limit option removed per request */}
 
         {/* Expiry Time Selector */}
         {selectedFile && (

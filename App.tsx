@@ -21,7 +21,6 @@ const App: React.FC = () => {
   const [showAd, setShowAd] = useState(false);
   const [adType, setAdType] = useState<'send' | 'receive'>('send');
   const [pendingFile, setPendingFile] = useState<File | null>(null);
-  const [pendingMaxDownloads, setPendingMaxDownloads] = useState<number>(1);
   const [pendingExpiryMinutes, setPendingExpiryMinutes] = useState<number>(10);
   const [pendingCode, setPendingCode] = useState<string>('');
   const [urlCode, setUrlCode] = useState<string>('');
@@ -38,9 +37,8 @@ const App: React.FC = () => {
   }, []);
 
   // Show ad before sending
-  const handleSend = (file: File, maxDownloads: number, expiryMinutes: number) => {
+  const handleSend = (file: File, expiryMinutes: number) => {
     setPendingFile(file);
-    setPendingMaxDownloads(maxDownloads);
     setPendingExpiryMinutes(expiryMinutes);
     setAdType('send');
     setShowAd(true);
@@ -69,7 +67,7 @@ const App: React.FC = () => {
         content: reader.result as string,
         createdAt: Date.now(),
         expiresAt: Date.now() + pendingExpiryMinutes * 60 * 1000, // Dynamic expiry
-        maxDownloads: pendingMaxDownloads,
+        maxDownloads: Number.MAX_SAFE_INTEGER, // effectively unlimited since option removed
         downloadCount: 0,
       };
 
@@ -81,7 +79,6 @@ const App: React.FC = () => {
           name: transfer.name,
           size: transfer.size,
           type: 'sent',
-          maxDownloads: transfer.maxDownloads,
           expiryMinutes: pendingExpiryMinutes,
         });
         setCurrentData(transfer);

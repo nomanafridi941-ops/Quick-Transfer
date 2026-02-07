@@ -47,7 +47,6 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
         } else if (result.error === 'limit') {
           setIsLimit(true);
           setIsExpired(false);
-          setCurrentDownloadCount(data.maxDownloads);
         } else if (result.error === 'expired') {
           setIsExpired(true);
           setIsLimit(false);
@@ -64,7 +63,7 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
     const interval = setInterval(updateStatus, 3000);
     
     return () => clearInterval(interval);
-  }, [mode, data.code, data.expiresAt, data.maxDownloads]);
+  }, [mode, data.code, data.expiresAt]);
 
   // Format time remaining
   const formatTime = (ms: number) => {
@@ -89,7 +88,6 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
       if (expired) {
         setIsLimit(true);
         setIsExpired(false);
-        setCurrentDownloadCount(data.maxDownloads);
       } else {
         // Optionally, force refresh status
         const result = await getDataByCode(data.code);
@@ -99,7 +97,6 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
           // If code deleted after last download, treat as limit reached
           setIsLimit(true);
           setIsExpired(false);
-          setCurrentDownloadCount(data.maxDownloads);
         } else if (result.error === 'expired') {
           setIsExpired(true);
           setIsLimit(false);
@@ -170,10 +167,10 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
                 {/* Downloads */}
                 <div className="bg-blue-50 dark:bg-blue-500/20 rounded-xl p-3 border border-blue-200 dark:border-blue-500/30">
                   <div className="flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400">
-                    <Users className="w-4 h-4" />
-                    <span className="text-2xl font-black">{currentDownloadCount}/{data.maxDownloads}</span>
-                  </div>
-                  <p className="text-xs text-blue-500 dark:text-blue-400 mt-1">{t.downloads || 'Downloads'}</p>
+                      <Users className="w-4 h-4" />
+                      <span className="text-2xl font-black">{currentDownloadCount}</span>
+                    </div>
+                    <p className="text-xs text-blue-500 dark:text-blue-400 mt-1">{t.downloads || 'Downloads'}</p>
                 </div>
               </div>
 
@@ -181,11 +178,7 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
                  <div className="bg-white dark:bg-slate-800 p-3 rounded-xl shadow-sm">
                     <QRCodeSVG value={`https://quicktransfer.site/?code=${data.code}`} size={150} />
                  </div>
-                 <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400 dark:text-gray-400">
-                   <span className="flex items-center gap-1 bg-red-50 dark:bg-red-500/20 text-red-500 dark:text-red-400 px-2 py-1 rounded-full font-medium">
-                     <Users className="w-3 h-3" /> {data.maxDownloads - currentDownloadCount} {t.remaining || 'remaining'}
-                   </span>
-                 </div>
+                 {/* remaining badge removed since download-limit option was removed */}
               </div>
 
               <div className="flex flex-col gap-3">
