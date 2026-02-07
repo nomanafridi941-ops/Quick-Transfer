@@ -51,9 +51,6 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
         } else if (result.error === 'expired') {
           setIsExpired(true);
           setIsLimit(false);
-        } else if (result.error === 'invalid' && currentDownloadCount === data.maxDownloads) {
-          setIsLimit(true);
-          setIsExpired(false);
         }
       } catch (error) {
         console.log('Checking status...', error);
@@ -98,9 +95,11 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
         const result = await getDataByCode(data.code);
         if (result.data) {
           setCurrentDownloadCount(result.data.downloadCount || 0);
-        } else if (result.error === 'limit') {
+        } else if (result.error === 'limit' || result.error === 'invalid') {
+          // If code deleted after last download, treat as limit reached
           setIsLimit(true);
           setIsExpired(false);
+          setCurrentDownloadCount(data.maxDownloads);
         } else if (result.error === 'expired') {
           setIsExpired(true);
           setIsLimit(false);
