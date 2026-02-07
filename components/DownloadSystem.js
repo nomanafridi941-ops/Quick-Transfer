@@ -1,14 +1,12 @@
 // DownloadSystem.js
 // Modular download system for site
 
-const DOWNLOAD_LIMIT = 5; // Set your max downloads
 const COUNTDOWN_SECONDS = 60; // Set your countdown duration (seconds)
 const DOWNLOAD_COUNT_KEY = "download_count";
 
 let timerState = "running"; // "running", "finished"
 let countdown = COUNTDOWN_SECONDS;
 let downloadCount = 0;
-let isLimitReached = false;
 let countdownInterval = null;
 
 // Utility: Load/Persist Download Count
@@ -40,7 +38,7 @@ function startCountdown() {
 
 // Download Logic
 function handleDownload() {
-  if (isLimitReached || timerState === "finished") return;
+  if (timerState === "finished") return;
   // Simulate file download (replace with actual logic)
   alert("File downloaded!");
   downloadCount++;
@@ -50,18 +48,14 @@ function handleDownload() {
 
 // UI State Logic
 function updateUI() {
-  isLimitReached = downloadCount >= DOWNLOAD_LIMIT;
   const downloadBtn = document.getElementById("download-btn");
-  const limitMsg = document.getElementById("limit-msg");
-  downloadBtn.disabled = isLimitReached || timerState === "finished";
-  limitMsg.style.display = isLimitReached ? "block" : "none";
-  document.getElementById("count-display").textContent = `${downloadCount}/${DOWNLOAD_LIMIT}`;
+  downloadBtn.disabled = timerState === "finished";
+  document.getElementById("count-display").textContent = `${downloadCount}`;
 }
 
 // Initialization
 function initDownloadSystem() {
   downloadCount = loadDownloadCount();
-  isLimitReached = downloadCount >= DOWNLOAD_LIMIT;
   updateUI();
   startCountdown();
   document.getElementById("download-btn").addEventListener("click", handleDownload);
@@ -69,7 +63,7 @@ function initDownloadSystem() {
   // Refresh only Downloads count every 2 seconds
   setInterval(() => {
     downloadCount = loadDownloadCount();
-    document.getElementById("count-display").textContent = `${downloadCount}/${DOWNLOAD_LIMIT}`;
+    document.getElementById("count-display").textContent = `${downloadCount}`;
   }, 2000);
 }
 
