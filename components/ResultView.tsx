@@ -109,7 +109,7 @@ const ResultView: React.FC<ResultViewProps> = ({ data, mode, onBack }) => {
               </div>
 
               {/* Time Remaining */}
-              <div className="bg-orange-50 dark:bg-orange-500/20 rounded-xl p-3 border border-orange-200 dark:border-orange-500/30">
+              <div className="bg-orange-50 dark:bg-orange-500/20 rounded-xl p-3 border border-orange-200 dark:border-orange-500/30 mb-8">
                 <div className="flex items-center justify-center gap-2 text-orange-600 dark:text-orange-400">
                   <Clock className="w-4 h-4" />
                   <span className="text-2xl font-black">{formatTime(timeRemaining)}</span>
