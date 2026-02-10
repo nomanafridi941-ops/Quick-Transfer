@@ -265,6 +265,115 @@ const App: React.FC = () => {
         </div>
       </div>
 
+      {/* How It Works Section */}
+      <section className="py-16 bg-gray-50/50 dark:bg-slate-900/30">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">How It Works</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Transfer files between devices in just three simple steps. No complicated setup required.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-red-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-xl">1</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Upload Your File</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Select any file from your device. Our secure system handles files up to a generous size limit.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-red-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-xl">2</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Get Your Code</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Receive a unique 6-digit code instantly. Share this code with anyone you want to send the file to.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-red-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-xl">3</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Download & Transfer</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                The recipient enters the code and downloads the file immediately. Fast, secure, and private.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">Why Choose QuickTransfer?</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Experience the fastest and most secure way to share files online. Built for modern users who value privacy and convenience.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white dark:bg-slate-800/50 p-6 rounded-xl custom-shadow border border-gray-100 dark:border-slate-700/50">
+              <div className="bg-red-100 dark:bg-red-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <Rocket className="w-6 h-6 text-red-500 dark:text-red-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Lightning Fast</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Upload and download files at high speeds. No waiting around for large transfers to complete.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-slate-800/50 p-6 rounded-xl custom-shadow border border-gray-100 dark:border-slate-700/50">
+              <div className="bg-red-100 dark:bg-red-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <Send className="w-6 h-6 text-red-500 dark:text-red-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">No Registration</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Start transferring files immediately. No account creation, email verification, or personal information required.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-slate-800/50 p-6 rounded-xl custom-shadow border border-gray-100 dark:border-slate-700/50">
+              <div className="bg-red-100 dark:bg-red-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <AlertCircle className="w-6 h-6 text-red-500 dark:text-red-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Secure & Private</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Your files are encrypted during transfer. Each file gets a unique code that expires automatically.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-slate-800/50 p-6 rounded-xl custom-shadow border border-gray-100 dark:border-slate-700/50">
+              <div className="bg-red-100 dark:bg-red-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <HelpCircle className="w-6 h-6 text-red-500 dark:text-red-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Cross-Platform</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Works on any device with a web browser. Transfer files between desktop computers, tablets, and smartphones seamlessly.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-slate-800/50 p-6 rounded-xl custom-shadow border border-gray-100 dark:border-slate-700/50">
+              <div className="bg-red-100 dark:bg-red-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <HelpCircle className="w-6 h-6 text-red-500 dark:text-red-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Large File Support</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Send files of any size up to our generous limits. Perfect for sharing documents, photos, videos, and more.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-slate-800/50 p-6 rounded-xl custom-shadow border border-gray-100 dark:border-slate-700/50">
+              <div className="bg-red-100 dark:bg-red-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <HelpCircle className="w-6 h-6 text-red-500 dark:text-red-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Temporary Storage</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Files are stored temporarily and automatically deleted after download or expiration. Your privacy is protected.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer Meta */}
       <footer className="bg-gray-50/50 dark:bg-slate-900/80 py-8 md:py-12 border-t border-gray-100 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4">
