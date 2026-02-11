@@ -214,13 +214,6 @@ const App: React.FC = () => {
         </span>
       </a>
 
-      {/* Demo Ad Banner - Above Footer */}
-      <div className="bg-white dark:bg-slate-800/50 py-6 border-t border-gray-100 dark:border-slate-700/50">
-        <div className="max-w-7xl mx-auto px-4 flex justify-center">
-          <DemoAd size="728x90" mobileSize="320x50" />
-        </div>
-      </div>
-
       {/* How It Works Section */}
       <section className="py-16 bg-gray-50/50 dark:bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-4">
