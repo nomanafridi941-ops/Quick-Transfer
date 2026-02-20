@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Rocket, Menu, Moon, Sun, X } from 'lucide-react';
 import LanguageSelector from './LanguageSelector';
+import InstallButton from './InstallButton';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 
@@ -41,7 +42,7 @@ const Header: React.FC = () => {
             )}
           </button>
           <LanguageSelector />
-          {/* Download / install controls removed per request */}
+          <InstallButton />
           <button 
             className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
