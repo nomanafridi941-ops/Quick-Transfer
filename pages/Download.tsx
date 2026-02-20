@@ -1,6 +1,6 @@
 import React from 'react';
 import { Monitor, Smartphone, Download } from 'lucide-react';
-// import InstallButton from '../components/InstallButton';
+import InstallButton from '../components/InstallButton';
 
 const DownloadPage: React.FC = () => {
   return (
@@ -45,14 +45,7 @@ const DownloadPage: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-3 flex-wrap">
-              <a
-                href="/downloads/quicktransfer-windows.zip"
-                className="inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 text-white font-medium hover:opacity-95"
-                download
-              >
-                <Download className="inline w-4 h-4 mr-2 align-middle" />
-                Install for Windows
-              </a>
+              <InstallButton />
             </div>
           </div>
         </div>
