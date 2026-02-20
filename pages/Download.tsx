@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Rocket, Monitor, Smartphone, Download as DownloadIcon, Moon, Sun } from 'lucide-react';
-import DemoAd from '../components/DemoAd';
 import { useTheme } from '../context/ThemeContext';
 
 const DownloadPage: React.FC = () => {
@@ -119,7 +118,7 @@ const DownloadPage: React.FC = () => {
             </div>
 
             <div className="flex justify-center md:justify-end">
-              <DemoAd size="300x250" label="Downloads Page" />
+              {/* Ad removed per request */}
             </div>
           </div>
         </div>
