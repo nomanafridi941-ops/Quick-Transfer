@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-const InstallButton: React.FC = () => {
+interface InstallButtonProps {
+  label?: string;
+  className?: string;
+}
+
+const InstallButton: React.FC<InstallButtonProps> = ({ label = 'Install', className = '' }) => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
   const [installed, setInstalled] = useState(false);
@@ -58,10 +63,10 @@ const InstallButton: React.FC = () => {
     <>
       <button
         onClick={onInstallClick}
-        className="inline-block px-3 py-2 rounded-lg bg-white text-red-500 font-medium hover:bg-gray-50 transition"
-        aria-label="Install app"
+        className={`inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 text-white font-medium hover:opacity-95 ${className}`}
+        aria-label={label}
       >
-        Install
+        {label}
       </button>
 
       {showModal && (
