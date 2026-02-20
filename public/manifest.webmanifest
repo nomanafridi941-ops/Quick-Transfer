@@ -18,7 +18,7 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
+  ]
   "screenshots": [
     {
       "src": "/icons/screenshots/screenshot-wide.png",
@@ -30,5 +30,5 @@
       "sizes": "412x915",
       "type": "image/png"
     }
-  ]
+  ],
 }
