@@ -48,7 +48,7 @@ const Header: React.FC = () => {
           >
             Download
           </a>
-          <InstallButton />
+          {/* <InstallButton /> removed from main header as requested */}
           <button 
             className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
