@@ -1,6 +1,0 @@
-const { contextBridge } = require('electron');
-
-// Expose a minimal API if needed later
-contextBridge.exposeInMainWorld('electron', {
-  platform: process.platform
-});
