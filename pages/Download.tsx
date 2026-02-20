@@ -1,6 +1,6 @@
 import React from 'react';
 import { Monitor, Smartphone, Download } from 'lucide-react';
-import InstallButton from '../components/InstallButton.tsx';
+import InstallButton from '../components/InstallButton';
 
 const DownloadPage: React.FC = () => {
   return (
