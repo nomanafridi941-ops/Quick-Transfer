@@ -165,7 +165,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
           disabled={selectedFiles.length === 0 || loading}
           onClick={handleSend}
           className={`w-full py-4 rounded-xl font-bold text-white transition-all flex items-center justify-center gap-2 ${
-            selectedFile && !loading ? 'bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 shadow-lg shadow-red-500/25 dark:shadow-red-500/20' : 'bg-gray-200 dark:bg-slate-700 cursor-not-allowed text-gray-400 dark:text-gray-500'
+            selectedFiles.length > 0 && !loading ? 'bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 shadow-lg shadow-red-500/25 dark:shadow-red-500/20' : 'bg-gray-200 dark:bg-slate-700 cursor-not-allowed text-gray-400 dark:text-gray-500'
           }`}
         >
           {loading && <Loader2 className="w-5 h-5 animate-spin" />}
