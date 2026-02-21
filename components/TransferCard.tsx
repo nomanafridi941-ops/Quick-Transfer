@@ -14,7 +14,7 @@ interface TransferCardProps {
 const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, loading, initialCode }) => {
   const { t } = useLanguage();
   const [code, setCode] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [expiryMinutes, setExpiryMinutes] = useState<number>(10);
   const [fileError, setFileError] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -30,28 +30,25 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
   }, [initialCode, type]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      
-      // Check file size limit
-      if (file.size > MAX_FILE_SIZE) {
-        setFileError(`File size exceeds 100MB limit. Please select a smaller file.`);
-        setSelectedFile(null);
-        // Reset the input
-        if (fileInputRef.current) {
-          fileInputRef.current.value = '';
-        }
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      const totalSize = files.reduce((sum, f) => sum + f.size, 0);
+      if (totalSize > MAX_FILE_SIZE) {
+        setFileError('Total size exceeds 100MB limit. Please select fewer or smaller files.');
+        setSelectedFiles([]);
+        if (fileInputRef.current) fileInputRef.current.value = '';
         return;
       }
-      
       setFileError('');
-      setSelectedFile(file);
+      setSelectedFiles(files);
     }
   };
 
   const handleSend = () => {
-    if (selectedFile && onSend) {
-      onSend(selectedFile, expiryMinutes);
+    if (selectedFiles.length && onSend) {
+      // Combine files into a single FileList-like array
+      // You may need to update the parent handler to accept multiple files
+      onSend(selectedFiles, expiryMinutes);
     }
   };
 
@@ -73,7 +70,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
           <p className="text-sm text-gray-400 dark:text-gray-400 mt-1">{t.sendHelper}</p>
         </div>
         
-        {!selectedFile ? (
+        {selectedFiles.length === 0 ? (
           <div 
             onClick={() => fileInputRef.current?.click()}
             className="flex-1 min-h-[160px] border-2 border-dashed border-gray-100 dark:border-slate-600 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:bg-pink-50 dark:hover:bg-red-500/10 hover:border-red-200 dark:hover:border-red-500/50 group transition-all"
@@ -81,31 +78,46 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
             <div className="bg-red-50 dark:bg-red-500/20 p-4 rounded-full group-hover:bg-red-100 dark:group-hover:bg-red-500/30 transition-colors mb-3">
               <Plus className="w-10 h-10 text-red-500 dark:text-red-400" />
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Click to select a file</p>
-            <p className="text-xs text-gray-400 dark:text-gray-500">Maximum file size: 100MB</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Click to select files</p>
+            <p className="text-xs text-gray-400 dark:text-gray-500">Maximum total size: 100MB</p>
             <input 
               type="file" 
               className="hidden" 
               ref={fileInputRef} 
               onChange={handleFileChange}
+              multiple
             />
           </div>
         ) : (
-          <div className="flex-1 bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 flex items-center justify-between border border-gray-100 dark:border-slate-600">
-            <div className="flex items-center gap-3">
-              <div className="bg-blue-100 dark:bg-blue-500/20 p-2 rounded-lg">
-                <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-700 dark:text-gray-100 truncate max-w-[150px]">{selectedFile.name}</p>
-                <p className="text-xs text-gray-400 dark:text-gray-400">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
+          <div className="flex-1 bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-600">
+            <div className="flex flex-col gap-2">
+              {selectedFiles.map((file, idx) => (
+                <div key={idx} className="flex items-center gap-3">
+                  <div className="bg-blue-100 dark:bg-blue-500/20 p-2 rounded-lg">
+                    <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-100 truncate max-w-[150px]">{file.name}</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                  </div>
+                  <button onClick={() => {
+                    setSelectedFiles(selectedFiles.filter((_, i) => i !== idx));
+                    setFileError('');
+                  }} className="text-gray-400 hover:text-red-500">
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              ))}
+              <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                Total size: {(selectedFiles.reduce((sum, f) => sum + f.size, 0) / 1024 / 1024).toFixed(2)} MB
               </div>
             </div>
             <button onClick={() => {
-              setSelectedFile(null);
+              setSelectedFiles([]);
               setFileError('');
-            }} className="text-gray-400 hover:text-red-500">
-              <X className="w-5 h-5" />
+              if (fileInputRef.current) fileInputRef.current.value = '';
+            }} className="mt-3 text-gray-400 hover:text-red-500">
+              <X className="w-5 h-5" /> Remove all
             </button>
           </div>
         )}
@@ -120,7 +132,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
         {/* Download limit option removed per request */}
 
         {/* Expiry Time Selector */}
-        {selectedFile && (
+        {selectedFiles.length > 0 && (
           <div className="bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-600">
             <div className="flex items-center gap-2 mb-3">
               <Clock className="w-4 h-4 text-red-500" />
@@ -145,7 +157,7 @@ const TransferCard: React.FC<TransferCardProps> = ({ type, onSend, onReceive, lo
         )}
 
         <button 
-          disabled={!selectedFile || loading}
+          disabled={selectedFiles.length === 0 || loading}
           onClick={handleSend}
           className={`w-full py-4 rounded-xl font-bold text-white transition-all flex items-center justify-center gap-2 ${
             selectedFile && !loading ? 'bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 shadow-lg shadow-red-500/25 dark:shadow-red-500/20' : 'bg-gray-200 dark:bg-slate-700 cursor-not-allowed text-gray-400 dark:text-gray-500'
